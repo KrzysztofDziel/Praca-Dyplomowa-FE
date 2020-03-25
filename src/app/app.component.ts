@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from './models/user';
 import { KeycloakService } from './KeyCloak/keycloak.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ export class AppComponent implements OnInit {
   
   profile: User;
 
-  constructor(private keycloakService: KeycloakService ) {}
+  constructor(private keycloakService: KeycloakService, private location: Location ) {}
 
   public ngOnInit(): void {
       this.profile = this.keycloakService.getUser();

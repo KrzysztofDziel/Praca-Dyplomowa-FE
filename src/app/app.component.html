@@ -1,2 +1,38 @@
-<h1>Welcome {{profile.username}}!</h1>
-<button (click)="this.keycloakService.logout()">Logout</button>
+<mat-sidenav-container fullscreen>
+  <mat-sidenav mode="side" #sidenav opened position="start">
+    <li>
+      <div [routerLink]='["/"]'>
+        <span class='glyphicon glyphicon-home'></span> Strona Główna
+      </div>
+    </li>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="accent">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <div class="title-center"><b>CITY CHAT</b></div>
+      <span class="toolbar-spacer"></span>
+      <div>
+        <span>Witaj,</span>
+        <b class="user-name-panel">
+          <button mat-button [matMenuTriggerFor]="userOptions" class="toolbar-font-size">
+            {{profile.username}}
+          </button>
+        </b><span>!</span>
+      </div>
+      <mat-menu #userOptions="matMenu">
+        <button mat-menu-item>
+          <mat-icon>account_box</mat-icon>Mój Profil
+        </button>
+        <button mat-menu-item>
+          <mat-icon> location_on</mat-icon>Tarnowskie Góry
+        </button>
+        <button mat-menu-item (click)="keycloakService.logout()">
+          <mat-icon>exit_to_app</mat-icon>Wyloguj się
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
