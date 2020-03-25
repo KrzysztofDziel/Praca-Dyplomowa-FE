@@ -7,6 +7,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 mat-sidenav {
     width: 15vw;
     padding:1vw;
+    min-width: 250px;
 }
 .mat-drawer { 
     background: rgb(81,67,93);
@@ -24,4 +25,8 @@ mat-sidenav {
 .title-center {
     flex: 10 0 auto;
     text-align: center;
+    color: black;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: white;
+    font-size: 34px;;
   }
