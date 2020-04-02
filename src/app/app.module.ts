@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from './material.module';
 import { UserInformationPanelComponent } from './user-information-panel/user-information-panel.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { HomePageComponent } from './home-page/home-page.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpModule,
+    FormsModule,
     MaterialModule,
     //  ToastModule.forRoot(),
     RouterModule.forRoot([

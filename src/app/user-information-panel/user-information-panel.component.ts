@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../models/user';
+import { KeycloakService } from '../KeyCloak/keycloak.service';
 
 @Component({
   selector: 'app-user-information-panel',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserInformationPanelComponent implements OnInit {
 
-  constructor() { }
+  profile: User;
+
+  constructor(private keycloakService: KeycloakService) { }
 
   ngOnInit() {
+    this.profile = this.keycloakService.getUser();
   }
 
 }

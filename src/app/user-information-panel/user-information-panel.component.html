@@ -1,1 +1,70 @@
-<p>user-information-panel works!</p>
+<div class="my-container">
+</div>
+<div class="login-page">
+    <div class="form">
+        <div class="register-form">
+            <div class="page-title">
+                Twój Profil
+            </div>
+            <table>
+                <tr>
+                    <td class="float-left">
+                        <div>Numer ID: </div>
+                    </td>
+                    <td class="float-right"> {{profile.id}}</td>
+                </tr>
+                <hr>
+                <tr>
+                    <td class="float-left">
+                        <div>Aktualna lokalizacja: </div>
+                    </td>
+                    <td class="float-right"></td>
+                </tr>
+                <hr>
+                <tr>
+                    <td class="float-left">
+                        <div>Imię: </div>
+                    </td>
+                    <td class="float-right"> {{profile.firstName}}</td>
+                </tr>
+                <hr>
+                <tr>
+                    <td class="float-left">
+                        <div>Nazwisko: </div>
+                    </td>
+                    <td class="float-right"> {{profile.lastName}}</td>
+                </tr>
+                <hr>
+                <tr>
+                    <td class="float-left">
+                        <div>E-mail: </div>
+                    </td>
+                    <td class="float-right"> {{profile.email}}</td>
+                </tr>
+                <hr>
+                <tr>
+                    <td class="float-left">
+                        <div>Nazwa użytkownika: </div>
+                    </td>
+                    <td class="float-right"> {{profile.username}}</td>
+                </tr>
+                <hr>
+                <tr colspan="2">
+                    <td>
+                        <div class="profile-bio">
+                            Opis
+                        </div>
+                    </td>
+                </tr>
+                <tr colspan="2">
+                    <td>
+                        <textarea  [(ngModel)]="profile.bio" name="" id="" cols="30" rows="5" (onChange)="console.log(profile.bio);"></textarea>
+                    </td>
+                </tr>
+            </table>
+            <a [routerLink]='["/"]' class="gradient-button gradient-button-1"> <span
+                class='glyphicon glyphicon-floppy-disk' style="color:white;"></span>
+            <span style="margin-left: 10px; color: white;"> Zapisz zmiany</span></a>
+        </div>
+    </div>
+</div>

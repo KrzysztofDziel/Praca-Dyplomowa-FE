@@ -1,32 +1,54 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 mat-sidenav {
-    width: 15vw;
-    padding:1vw;
-    min-width: 250px;
+  width: 15vw;
+  padding: 1vw;
+  min-width: 250px;
 }
-.mat-drawer { 
-    background: rgb(81,67,93);
-    background: linear-gradient(0deg, rgba(81,67,93,1) 0%, rgba(204,107,142,1) 58%, rgba(255,189,163,1) 100%); 
-    border-style: solid;
-    border-width: 10px 10px 0px 5px;
+.mat-drawer {
+  background: rgb(81, 67, 93);
+  background: linear-gradient(0deg, rgba(81, 67, 93, 1) 0%, rgba(144, 74, 108, 1) 45%, rgba(236, 142, 158, 1) 100%);
+  border-style: solid;
+  border-width: 10px 10px 0px 5px;
 }
 .main-content {
-    padding:20px;
-}
-.toolbar-spacer {
-    flex: 1 1 auto;
+  padding: 20px;
 }
 
 .title-center {
-    flex: 10 0 auto;
-    text-align: center;
-    color: black;
-    -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: white;
-    font-size: 34px;;
-  }
+  flex: 1 0 auto;
+  text-align: center;
+  color: black;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: white;
+  font-size: 34px;
+  font-family: "Open Sans",Helvetica,Arial,sans-serif;
+  letter-spacing: 3px;
+}
+
+.mat-toolbar.mat-accent {
+  color: #fff !important;
+  background: linear-gradient(0deg,rgb(144, 74, 108) 0%, rgb(236, 142, 158) 65%) !important;
+}
+
+body,
+html {
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.my-container {
+  width: 100vw;
+  height: 100vh;
+}

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, SystemJsNgModuleLoader } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
 
@@ -38,7 +38,7 @@ export class KeycloakService {
                         this.user.firstName = data.firstName;
                         this.user.lastName = data.lastName;
                         this.user.email = data.email;
-
+                        console.log(data);
                         resolve();
                     });
                 })
