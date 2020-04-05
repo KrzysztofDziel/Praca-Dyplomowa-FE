@@ -9,16 +9,21 @@
             <table>
                 <tr>
                     <td class="float-left">
-                        <div>Numer ID: </div>
+                        <div>Numer IP: </div>
                     </td>
-                    <td class="float-right"> {{profile.id}}</td>
+                    <td class="float-right"> {{locationModel.ipAddress}}</td>
                 </tr>
                 <hr>
                 <tr>
                     <td class="float-left">
+                        <br>
                         <div>Aktualna lokalizacja: </div>
                     </td>
-                    <td class="float-right"></td>
+                    <td class="float-right">
+                        <span>{{locationModel.city}}</span>
+                        <div>{{locationModel.regionName}}</div>
+                        <div>{{locationModel.countryName}}</div>
+                    </td>
                 </tr>
                 <hr>
                 <tr>

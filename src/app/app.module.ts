@@ -11,7 +11,7 @@ import { MaterialModule } from './material.module';
 import { UserInformationPanelComponent } from './user-information-panel/user-information-panel.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { FormsModule } from '@angular/forms';
-
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,6 +26,7 @@ import { FormsModule } from '@angular/forms';
     HttpModule,
     FormsModule,
     MaterialModule,
+    HttpClientModule,
     //  ToastModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomePageComponent, pathMatch: 'full' },
