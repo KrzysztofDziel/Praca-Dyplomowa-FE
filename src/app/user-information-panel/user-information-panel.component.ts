@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user';
-import { KeycloakService } from '../KeyCloak/keycloak.service';
 import { LocationService } from '../services/location.service';
 import { BaseComponent } from '../common/base-component';
 import { LocationDataModel } from '../models/locationData.model';
@@ -15,12 +14,11 @@ export class UserInformationPanelComponent extends BaseComponent implements OnIn
   private profile: User;
   locationModel: LocationDataModel;
 
-  constructor(private keycloakService: KeycloakService, private loc: LocationService) {
+  constructor(private loc: LocationService) {
     super(loc);
   }
 
   ngOnInit() {
-    this.profile = this.keycloakService.getUser();
     this.locationModel = this.loc.getLocationModel();
   }
 
