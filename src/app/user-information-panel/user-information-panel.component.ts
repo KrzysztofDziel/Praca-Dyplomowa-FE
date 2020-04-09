@@ -3,6 +3,7 @@ import { User } from '../models/user';
 import { LocationService } from '../services/location.service';
 import { BaseComponent } from '../common/base-component';
 import { LocationDataModel } from '../models/locationData.model';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-user-information-panel',
@@ -11,11 +12,10 @@ import { LocationDataModel } from '../models/locationData.model';
 })
 export class UserInformationPanelComponent extends BaseComponent implements OnInit {
 
-  private profile: User;
   locationModel: LocationDataModel;
 
-  constructor(private loc: LocationService) {
-    super(loc);
+  constructor(private loc: LocationService, auth: AuthService) {
+    super(loc, auth);
   }
 
   ngOnInit() {

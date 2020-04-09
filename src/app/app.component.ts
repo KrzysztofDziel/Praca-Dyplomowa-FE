@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from './models/user';
 import { LocationService } from './services/location.service';
 import { BaseComponent } from './common/base-component';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +12,9 @@ import { BaseComponent } from './common/base-component';
 export class AppComponent extends BaseComponent implements OnInit {
   title = 'Praca-Dyplomowa-FE';
 
-  private profile: User;
 
-  constructor(private loc: LocationService) {
-    super(loc);
+  constructor(private loc: LocationService, auth: AuthService) {
+    super(loc, auth);
   }
 
   ngOnInit(): void {

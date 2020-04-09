@@ -1,0 +1,25 @@
+<div class="my-container">
+</div>
+<div class="login-page">
+  <div class="form">
+    <div>
+      <h3 class="confirmation-title">Dziękujemy za Rejestrację</h3>
+      <hr>
+      <div *ngIf="authService.userData as user">
+        <p class="message">Wysłaliśmy wiadomość e-mail z potwierdzeniem na adres <strong>{{user.email}}</strong>.</p>
+        <p class="message">Sprawdź swój adres e-mail i kliknij w link, aby zweryfikować swój adres e-mail.</p>
+      </div>
+      <hr>
+      <div>
+        <a class="gradient-button gradient-button-1" (click)="authService.SendVerificationMail()">
+          Wyślij ponownie e-mail weryfikacyjny
+        </a>
+      </div>
+
+    </div>
+
+    <div class="resetMessageMargin">
+      <span>Powrót ?<span routerLink="/sign-in" class="loginIn"> Zaloguj się</span></span>
+    </div>
+  </div>
+</div>

@@ -39,7 +39,7 @@ export class LocationService {
   }
 
   getCurrentLocation() {
-    return this.http.get<LocationProperties>('http://api.ipapi.com/api/check?access_key=e55601dece3cc5dee219370ea81d1037');
+    return this.http.get<LocationProperties>('https://api.ipapi.com/api/check?access_key=e55601dece3cc5dee219370ea81d1037');
   }
 
   getLocationModel(): LocationDataModel {

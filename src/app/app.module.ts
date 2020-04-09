@@ -10,12 +10,27 @@ import { UserInformationPanelComponent } from './user-information-panel/user-inf
 import { HomePageComponent } from './home-page/home-page.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { environment } from 'src/environments/environment';
+import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
+import { AuthService } from './services/auth.service';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserInformationPanelComponent,
-    HomePageComponent
+    HomePageComponent,
+    SignInComponent,
+    ForgotPasswordComponent,
+    SignUpComponent,
+    VerifyEmailComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,15 +39,14 @@ import { HttpClientModule } from '@angular/common/http';
     HttpModule,
     FormsModule,
     MaterialModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
     HttpClientModule,
     //  ToastModule.forRoot(),
-    RouterModule.forRoot([
-      { path: '', component: HomePageComponent, pathMatch: 'full' },
-      { path: 'account-info', component: UserInformationPanelComponent },
-
-    ])
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

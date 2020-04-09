@@ -1,0 +1,40 @@
+<div class="my-container">
+</div>
+<div class="login-page">
+  <div class="form">
+      <div>
+        <h3 class="login-title">ZALOGUJ SIĘ</h3>
+        <hr>
+        <div>
+          <input class="inputStyle" type="text" placeholder="E-mail" #userName required>
+        </div>
+
+        <div>
+          <input class="inputStyle" type="password" placeholder="Hasło" #userPassword required>
+        </div>
+
+        <!-- Calling SignIn Api from AuthService -->
+        <div>
+          <a class="gradient-button gradient-button-1" (click)="authService.SignIn(userName.value, userPassword.value)">ZALOGUJ SIĘ</a>
+        </div>
+
+        <div>
+          <span><span>Lub</span></span>
+        </div>
+
+        <!-- Calling GoogleAuth Api from AuthService -->
+        <div>
+          <a class="gradient-button gradient-button-2" (click)="authService.GoogleAuth()">
+            ZALOGUJ PRZEZ GOOGLE
+          </a>
+        </div>
+
+        <div class="passwordReminder">
+          <span routerLink="/forgot-password">Nie pamiętasz hasła?</span>
+        </div>
+      </div>
+      <div>
+        <span>Nie masz konta?<span routerLink="/register-user" class="register"> Zarejestruj się</span></span>
+      </div>
+  </div>
+</div>

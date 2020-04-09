@@ -1,0 +1,23 @@
+<div class="my-container">
+</div>
+<div class="login-page">
+  <div class="form">
+    <h3 class="register-title">UTWÓRZ KONTO</h3>
+    <hr>
+    <div>
+      <input class="inputStyle" type="email" placeholder="E-mail" #userEmail required>
+    </div>
+
+    <div>
+      <input class="inputStyle" type="password" placeholder="Hasło" #userPwd required>
+    </div>
+
+    <div>
+      <a type="button" value="Sign Up" class="gradient-button gradient-button-1" (click)="authService.SignUp(userEmail.value, userPwd.value)">Utwórz konto</a>
+    </div>
+
+    <div class="gotAccountMargin">
+      <span>Posiadasz już konto? <span routerLink="/sign-in" class="loginIn">Zaloguj się</span></span>
+    </div>
+  </div>
+</div>
