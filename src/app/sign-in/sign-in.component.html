@@ -18,17 +18,6 @@
           <a class="gradient-button gradient-button-1" (click)="authService.SignIn(userName.value, userPassword.value)">ZALOGUJ SIĘ</a>
         </div>
 
-        <div>
-          <span><span>Lub</span></span>
-        </div>
-
-        <!-- Calling GoogleAuth Api from AuthService -->
-        <div>
-          <a class="gradient-button gradient-button-2" (click)="authService.GoogleAuth()">
-            ZALOGUJ PRZEZ GOOGLE
-          </a>
-        </div>
-
         <div class="passwordReminder">
           <span routerLink="/forgot-password">Nie pamiętasz hasła?</span>
         </div>

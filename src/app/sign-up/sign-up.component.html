@@ -1,23 +1,61 @@
-<div class="my-container">
-</div>
-<div class="login-page">
-  <div class="form">
-    <h3 class="register-title">UTWÓRZ KONTO</h3>
-    <hr>
-    <div>
-      <input class="inputStyle" type="email" placeholder="E-mail" #userEmail required>
-    </div>
+<form #registerForm="ngForm">
+  <div class="my-container">
+  </div>
 
-    <div>
-      <input class="inputStyle" type="password" placeholder="Hasło" #userPwd required>
-    </div>
+  <div class="login-page">
+    <div class="form">
 
-    <div>
-      <a type="button" value="Sign Up" class="gradient-button gradient-button-1" (click)="authService.SignUp(userEmail.value, userPwd.value)">Utwórz konto</a>
-    </div>
+      <h3 class="register-title">UTWÓRZ KONTO</h3>
 
-    <div class="gotAccountMargin">
-      <span>Posiadasz już konto? <span routerLink="/sign-in" class="loginIn">Zaloguj się</span></span>
+      <hr>
+
+      <div>
+        <input class="inputStyle" type="text" [(ngModel)]="userName" placeholder="Nazwa użytkownika" required
+          #userNameInput="ngModel" name="userNameInput">
+      </div>
+      <div *ngIf="userNameInput.invalid && (userNameInput.dirty || userNameInput.touched)" class="alert">* Wymagana
+        nazwa użytkownika
+      </div>
+
+      <div>
+        <input class="inputStyle" type="email" [(ngModel)]="emailAddress" placeholder="E-mail" required
+          #emailAddressInput="ngModel" name="emailAddressInput">
+      </div>
+      <div *ngIf="emailAddressInput.invalid && (emailAddressInput.dirty || emailAddressInput.touched)" class="alert">*
+        Wymagany adres e-mail
+      </div>
+
+      <div>
+        <input class="inputStyle" type="password" [(ngModel)]="password" placeholder="Hasło" required
+          #passwordInput="ngModel" name="passwordInput">
+      </div>
+      <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="alert">* Wymagane
+        hasło</div>
+
+      <div>
+        <textarea class="inputStyle" cols="10" rows="5" [(ngModel)]="bio" placeholder="Opis (Opcjonalne)" #bioInput
+          name="bioInput"></textarea>
+      </div>
+
+      <a class="gradient-emotes gradient-button-1" mat-button [matMenuTriggerFor]="aboveMenu">
+        <mat-icon>tag_faces</mat-icon>
+      </a>
+
+      <div>
+        <button [disabled]="registerForm.invalid" class="gradient-button gradient-button-1"
+          (click)="authService.SignUp(emailAddress, password, userName, bio)">Utwórz
+          konto</button>
+      </div>
+
+      <div class="gotAccountMargin">
+        <span>Posiadasz już konto? <span routerLink="/sign-in" class="loginIn">Zaloguj się</span></span>
+      </div>
+
     </div>
   </div>
-</div>
+</form>
+<mat-menu #aboveMenu="matMenu" yPosition="above">
+  <emoji-mart title="City Chat" emoji="" sheetSize="20" [darkMode]=false [perLine]=6 [enableSearch]=false
+    [totalFrequentLines]=1 set="facebook" (emojiSelect)="addEmoji($event)">
+  </emoji-mart>
+</mat-menu>

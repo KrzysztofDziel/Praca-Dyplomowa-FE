@@ -8,9 +8,19 @@ import { AuthService } from '../services/auth.service';
 })
 export class SignUpComponent implements OnInit {
 
+  userName: string;
+  password: string;
+  emailAddress: string;
+  bio: string;
+
   constructor(public authService: AuthService) { }
 
   ngOnInit() {
+    this.bio = "";
+  }
+
+  addEmoji(event: any) {
+    this.bio += event.emoji.native;
   }
 
 }

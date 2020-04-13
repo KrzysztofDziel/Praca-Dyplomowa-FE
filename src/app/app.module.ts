@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
 import { MaterialModule } from './material.module';
 import { UserInformationPanelComponent } from './user-information-panel/user-information-panel.component';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -15,12 +14,14 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment';
-import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { AuthService } from './services/auth.service';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { PickerModule } from '@ctrl/ngx-emoji-mart'
+import {ToastaModule} from 'ngx-toasta';
+import { AvatarModule } from 'ngx-avatar';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,9 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
     AngularFirestoreModule,
     AngularFireStorageModule,
     HttpClientModule,
-    //  ToastModule.forRoot(),
+    PickerModule,
+    AvatarModule,
+    ToastaModule.forRoot(),
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

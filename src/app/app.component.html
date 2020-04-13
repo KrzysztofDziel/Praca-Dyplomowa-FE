@@ -19,19 +19,19 @@
           <mat-icon>menu</mat-icon>
         </button>
         <div class="title-center"><b>CITY CHAT</b></div>
+        <ngx-avatar *ngIf="profile.photoDownloadURL !== ''" size=40 src="{{profile.photoDownloadURL}}" bgColor="#cc6b8e"></ngx-avatar>
+        <ngx-avatar *ngIf="profile.photoDownloadURL === ''" size=40 name="{{profile.username}}" bgColor="#cc6b8e"></ngx-avatar>
         <div>
-          <span>Witaj,</span>
-          <b class="user-name-panel">
-            <button mat-button [matMenuTriggerFor]="userOptions" class="toolbar-font-size">
-              {{profile.username}}
+          <span>Witaj, <span class="toolbar-font-size"><b class="user-name-panel">{{profile.username}}</b></span><span style="margin-right: 20px;"> !</span></span>
+            <button class="gradient-button-userOptions gradient-button-1" mat-button [matMenuTriggerFor]="userOptions">
+              <mat-icon>more_vert</mat-icon>
             </button>
-          </b><span>!</span>
         </div>
         <mat-menu #userOptions="matMenu">
           <button mat-menu-item [routerLink]='["/account-info"]'>
             <mat-icon>account_box</mat-icon>Mój Profil
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item (click)="showLocationInfo()">
             <mat-icon> location_on</mat-icon>{{locationModel.city}}
           </button>
           <button mat-menu-item (click)="auth.SignOut()">

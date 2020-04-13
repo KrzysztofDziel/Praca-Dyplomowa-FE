@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from './models/user';
 import { LocationService } from './services/location.service';
 import { BaseComponent } from './common/base-component';
 import { AuthService } from './services/auth.service';
+import { ToastaService, ToastaConfig, ToastOptions, ToastData } from 'ngx-toasta';
 
 @Component({
   selector: 'app-root',
@@ -13,12 +13,18 @@ export class AppComponent extends BaseComponent implements OnInit {
   title = 'Praca-Dyplomowa-FE';
 
 
-  constructor(private loc: LocationService, auth: AuthService) {
-    super(loc, auth);
+  constructor(
+    loc: LocationService,
+    auth: AuthService,
+    toastaService: ToastaService,
+    toastaConfig: ToastaConfig) {
+    super(loc, auth, toastaService, toastaConfig);
+    this.toastaConfig.theme = 'material';
   }
 
   ngOnInit(): void {
     this.getClientLocation();
   }
+
 
 }
