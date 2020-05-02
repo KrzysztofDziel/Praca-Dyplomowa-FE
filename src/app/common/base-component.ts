@@ -16,7 +16,7 @@ export class BaseComponent implements OnDestroy {
     public userInfo: any;
     public userBio: string;
     public fileAvatar: File;
-    
+
     constructor(
         public location: LocationService,
         public auth: AuthService,
@@ -24,6 +24,7 @@ export class BaseComponent implements OnDestroy {
         public toastaConfig: ToastaConfig) {
         this.locationModel = new LocationDataModel();
         this.observables = [];
+        this.getClientLocation();
         this.isLoggedIn = this.auth.isLoggedIn;
         if (this.isLoggedIn) {
             this.userJSON = JSON.parse(localStorage.getItem('user'));
@@ -35,7 +36,7 @@ export class BaseComponent implements OnDestroy {
                 }
                 this.auth.getDownloadURL(this.profile);
                 this.userInfo = JSON.parse(localStorage.getItem('userInformation'));
-                this.auth.updateLocationToDB(this.locationModel, this.profile);
+                setTimeout(() => this.auth.updateLocationToDB(this.locationModel, this.profile), 1000);
             });
         }
 
@@ -44,16 +45,16 @@ export class BaseComponent implements OnDestroy {
     showLocationInfo() {
 
         var toastOptions1: ToastOptions = {
-          title: "Aktualna lokalizacja",
-          msg: this.locationModel.city + ', ' + this.locationModel.regionName + ', ' + this.locationModel.countryName,
-          showClose: true,
-          timeout: 7000,
-          theme: 'bootstrap',
+            title: "Aktualna lokalizacja",
+            msg: this.locationModel.city + ', ' + this.locationModel.regionName + ', ' + this.locationModel.countryName,
+            showClose: true,
+            timeout: 7000,
+            theme: 'bootstrap',
         }
-    
+
         this.toastaService.info(toastOptions1);
-    
-      }
+
+    }
 
     updateUserBio() {
         this.auth.updateUserBioDatabase(this.locationModel, this.profile);

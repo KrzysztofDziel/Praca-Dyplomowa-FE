@@ -44,8 +44,8 @@ export class UserInformationPanelComponent extends BaseComponent implements OnIn
     }
 
     var toastOptions3: ToastOptions = {
-      title: "Zapisano",
-      msg: "Pomyślnie zapisano nowy avatar użytkownika",
+      title: "Pomyślnie zapisano nowy avatar użytkownika",
+      msg: "Odświeżam stronę",
       showClose: true,
       timeout: 7000,
       theme: 'bootstrap',
@@ -70,6 +70,7 @@ export class UserInformationPanelComponent extends BaseComponent implements OnIn
     if (this.fileAvatar) {
       this.toastaService.success(toastOptions3);
       this.auth.uploadUserAvatar(this.fileAvatar, this.profile);
+      setTimeout(() => window.location.reload(), 7000);
     } else {
       this.toastaService.warning(toastOptions4);
     }

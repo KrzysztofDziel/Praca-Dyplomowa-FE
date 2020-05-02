@@ -9,6 +9,7 @@ import { LocationDataModel } from '../models/locationData.model';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { Observable } from 'rxjs/internal/Observable';
 import { finalize, tap } from 'rxjs/operators';
+import { firebase } from '@firebase/app';
 
 @Injectable({
   providedIn: 'root'
@@ -70,6 +71,34 @@ export class AuthService {
     })
   }
 
+
+  getDownloadURL(user) {
+    if (user.photoURL && user.photoDownloadURL === '') {
+      const path = user.photoURL;
+      const ref = this.storage.ref(path);
+      ref.getDownloadURL().subscribe(url => {
+        this.afs.doc(`users/${user.id}`).update({ photoDownloadURL: url });
+        user.photoDownloadURL = url;
+        localStorage.setItem('userInformation', JSON.stringify(user));
+      })
+    }
+  }
+
+  deleteUserFromDB(user) {
+    if (user.photoDownloadURL != "") {
+      this.storage.storage.refFromURL(`${user.photoDownloadURL}`).delete();
+    }
+    this.afs.doc(`users/${user.id}`).delete().then(function () {
+      console.log("Document successfully deleted!", user.id);
+    }).catch(function (error) {
+      console.error("Error removing document: ", error);
+    });
+
+    this.afAuth.auth.currentUser.delete().then(() => {
+      this.SignOut();
+      })
+  }
+
   updateUserBioDatabase(loc: LocationDataModel, user: UserModel) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.id}`);
     userRef.update({ bio: user.bio });
@@ -80,7 +109,15 @@ export class AuthService {
     localStorage.removeItem('user');
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(() => {
-        this.ngZone.run(() => {
+        this.afAuth.authState.subscribe(user => {
+          if (user) {
+            this.userData = user;
+            localStorage.setItem('user', JSON.stringify(this.userData));
+            this.userData = JSON.parse(localStorage.getItem('user'));
+          } else {
+            localStorage.setItem('user', null);
+            this.userData = JSON.parse(localStorage.getItem('user'));
+          }
           window.location.reload();
         })
       }).catch((error) => {
@@ -176,14 +213,9 @@ export class AuthService {
     this.afs.doc(`users/${user.id}`).update({ photoURL: path, photoDownloadURL: "" });
   }
 
-  getDownloadURL(user) {
-    if (user.photoURL) {
-      const path = user.photoURL;
-      const ref = this.storage.ref(path);
-      ref.getDownloadURL().subscribe(url => {
-        this.afs.doc(`users/${user.id}`).update({ photoDownloadURL: url });
-      })
-    }
+  deleteUserPhotoFromDB(user) {
+    this.storage.storage.refFromURL(`${user.photoDownloadURL}`).delete();
+    this.afs.doc(`users/${user.id}`).update({ photoURL: "", photoDownloadURL: "" });
   }
 
 }

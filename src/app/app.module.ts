@@ -22,6 +22,7 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart'
 import {ToastaModule} from 'ngx-toasta';
 import { AvatarModule } from 'ngx-avatar';
+import { SettingsPageComponent } from './settings-page/settings-page.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { AvatarModule } from 'ngx-avatar';
     ForgotPasswordComponent,
     SignUpComponent,
     VerifyEmailComponent,
+    SettingsPageComponent,
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,7 @@ import { AuthGuard } from './services/guard/auth.guard';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { SecureInnerPagesGuard } from './services/guard/secure-inner-pages.guard.ts.guard';
+import { SettingsPageComponent } from './settings-page/settings-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/sign-in', pathMatch: 'full'},
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'verify-email-address', component: VerifyEmailComponent, canActivate: [SecureInnerPagesGuard]},
   { path: 'home', component: HomePageComponent, canActivate: [AuthGuard] },
   { path: 'account-info', component: UserInformationPanelComponent, canActivate: [AuthGuard] },
+  { path: 'account-settings', component: SettingsPageComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

@@ -1,0 +1,87 @@
+<div class="my-container">
+</div>
+<div class="login-page">
+    <div class="form">
+        <div class="page-title">
+            Ustawienia
+        </div>
+        <hr>
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Zdjęcie profilowe
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Usuń aktualne zdjęcie profilowe
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <ng-container *ngIf="profile.photoDownloadURL === ''">
+                    <br><br>
+                    <ngx-avatar size=80 name="{{profile.username}}" bgColor="#cc6b8e"></ngx-avatar>
+                    <br><br>
+                    <div>
+                        <b>
+                            <h4>Opcja zablokowana</h4>
+                        </b><br>
+                    </div>
+                    <div><span style="color: red;">Uwaga!</span> Nie posiadasz zdjęcia profilowego, które można usunąć.
+                    </div>
+                    <br>
+                </ng-container>
+                <ng-container *ngIf="profile.photoDownloadURL !== ''">
+                    <br>
+                    <ngx-avatar *ngIf="profile.photoDownloadURL !== ''" size=80 src="{{profile.photoDownloadURL}}"
+                        bgColor="#cc6b8e"></ngx-avatar>
+                    <br><br>
+                    <div>
+                        <b>
+                            <h4>Usunąć aktualne zdjęcie profilowe?</h4>
+                        </b><br>
+                    </div>
+                    <div>
+                        Proszę wpisać słowo <i>Usuń</i> w poniższym polu oraz nacisnąć przycisk <i>Usuń zdjęcie</i> w celu zatwierdzenia usunięcia zdjęcia profilowego.
+                    </div>
+                    <div>
+                        <input class="inputStyle" type="text" [(ngModel)]="deletePhoto">
+                    </div>
+                    <span style="color: red;">Uwaga!</span> Ta akcja nie może zostać cofnięta.
+                    <br><br>
+                    <div>
+                        <button (click)="deleteUserPhoto()" class="gradient-button gradient-button-1"
+                            [disabled]="!checkIfPhoto()">Usuń zdjęcie</button>
+                    </div>
+                </ng-container>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="marginBottom">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Konto użytkownika
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Usuń konto
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div><b>
+                        <h4>Usunąć konto użytkownika?</h4>
+                    </b></div>
+                <br>
+                <div><span style="color: red;">Uwaga!</span> Ta akcja nie może zostać cofnięta. Wszystkie dane związane
+                    z kontem użytkownika <b>{{profile.username}}</b> zostaną usunięte.
+                    <br><br><br>
+                    Proszę wpisać swoją nazwę użytkownika oraz nacisnąć przycisk <i>Usuń konto</i> w celu usunięcia konta.
+                </div>
+
+                <div>
+                    <input class="inputStyle" type="text" [placeholder]="profile.username"
+                        [(ngModel)]="confirmDeletion">
+                </div>
+                <div>
+                    <button (click)="deleteUser()" class="gradient-button gradient-button-1"
+                        [disabled]="!checkIfConfirmed()">Usuń konto</button>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>
+<ngx-toasta></ngx-toasta>

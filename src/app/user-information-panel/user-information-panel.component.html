@@ -1,88 +1,90 @@
-<div class="my-container">
+<div class="my-container" *ngIf="profile.username">
 </div>
-<div *ngIf="profile.username" class="login-page">
+<div *ngIf="profile.username; else loading" class="login-page">
     <div class="form">
-            <div class="page-title">
-                Twój Profil
-            </div>
+        <div class="page-title">
+            Twój Profil
+        </div>
+        <hr>
+        <ngx-avatar *ngIf="profile.photoDownloadURL !== ''" size=130 src="{{profile.photoDownloadURL}}"
+            bgColor="#cc6b8e"></ngx-avatar>
+        <ngx-avatar *ngIf="profile.photoDownloadURL === ''" size=130 name="{{profile.username}}" bgColor="#cc6b8e">
+        </ngx-avatar>
+        <table>
+            <tr colspan="2">
+                <td>
+                    <input type="file" style="visibility: hidden;" (change)="detectFiles($event)" id="insert"
+                        accept=".png, .jpg, .jpeg" />
+                    <label class="gradient-fileButton gradient-button-1" for="insert">
+                        Wybierz zdjęcie profilowe
+                    </label>
+                    <span class="fileName" *ngIf="fileAvatar">{{fileAvatar.name}}</span>
+                </td>
+            </tr>
             <hr>
-            <ngx-avatar *ngIf="profile.photoDownloadURL !== ''" size=130 src="{{profile.photoDownloadURL}}" bgColor="#cc6b8e"></ngx-avatar>
-            <ngx-avatar *ngIf="profile.photoDownloadURL === ''" size=130 name="{{profile.username}}" bgColor="#cc6b8e"></ngx-avatar>
-            <table>
-                <tr colspan="2">
-                    <td>
-                        <input type="file" style="visibility: hidden;"
-                        (change)="detectFiles($event)" id="insert" accept=".png, .jpg, .jpeg"/>
-                        <label class="gradient-fileButton gradient-button-1" for="insert">
-                            Wybierz zdjęcie profilowe
-                        </label>
-                        <span class="fileName" *ngIf="fileAvatar">{{fileAvatar.name}}</span>
-                    </td>
-                </tr>
-                <hr>
-                <tr>
-                    <td class="float-left">
-                        <br>
-                        <div>Aktualna lokalizacja: </div>
-                    </td>
-                    <td class="float-right">
-                        <span>{{locationModel.city}}</span>
-                        <div>{{locationModel.regionName}}</div>
-                        <div>{{locationModel.countryName}}</div>
-                    </td>
-                </tr>
-                <hr>
-                <tr>
-                    <td class="float-left">
-                        <div>Nazwa użytkownika: </div>
-                    </td>
-                    <td class="float-right"> {{profile.username}}</td>
-                </tr>
-                <hr>
-                <tr>
-                    <td class="float-left">
-                        <div>E-mail: </div>
-                    </td>
-                    <td class="float-right"> {{profile.email}}</td>
-                </tr>
-                <hr>
-                <tr colspan="2">
-                    <td>
-                        <div class="profile-bio">
-                            Opis
-                        </div>
-                    </td>
-                </tr>
-                <tr colspan="2">
-                    <td>
-                        <textarea [(ngModel)]="userBio" name="" id="" cols="20" rows="3" name="bioInput"></textarea>
-                    </td>
-                </tr>
-                <tr colspan="2">
-                    <td>
-                        <a class="gradient-emotes gradient-button-1" mat-button [matMenuTriggerFor]="aboveMenu">
-                            <mat-icon>tag_faces</mat-icon>
-                        </a>
-                    </td>
-                </tr>
-            </table>
+            <tr>
+                <td class="float-left">
+                    <br>
+                    <div>Aktualna lokalizacja: </div>
+                </td>
+                <td class="float-right">
+                    <span>{{locationModel.city}}</span>
+                    <div>{{locationModel.regionName}}</div>
+                    <div>{{locationModel.countryName}}</div>
+                </td>
+            </tr>
+            <hr>
+            <tr>
+                <td class="float-left">
+                    <div>Nazwa użytkownika: </div>
+                </td>
+                <td class="float-right"> {{profile.username}}</td>
+            </tr>
+            <hr>
+            <tr>
+                <td class="float-left">
+                    <div>E-mail: </div>
+                </td>
+                <td class="float-right"> {{profile.email}}</td>
+            </tr>
+            <hr>
+            <tr colspan="2">
+                <td>
+                    <div class="profile-bio">
+                        Opis
+                    </div>
+                </td>
+            </tr>
+            <tr colspan="2">
+                <td>
+                    <textarea [(ngModel)]="userBio" name="" id="" cols="20" rows="3" name="bioInput"></textarea>
+                </td>
+            </tr>
+            <tr colspan="2">
+                <td>
+                    <a class="gradient-emotes gradient-button-1" mat-button [matMenuTriggerFor]="aboveMenu">
+                        <mat-icon>tag_faces</mat-icon>
+                    </a>
+                </td>
+            </tr>
+        </table>
 
-            <a (click)="viewBio()" class="gradient-button gradient-button-1"> <span
-                    class='glyphicon glyphicon-floppy-disk' style="color:white;"></span>
-                <span style="margin-left: 10px; color: white;"> Zapisz zmiany</span></a>
+        <a (click)="viewBio()" class="gradient-button gradient-button-1"> <span class='glyphicon glyphicon-floppy-disk'
+                style="color:white;"></span>
+            <span style="margin-left: 10px; color: white;"> Zapisz zmiany</span></a>
     </div>
 </div>
 <ngx-toasta></ngx-toasta>
 <mat-menu #aboveMenu="matMenu" yPosition="above">
-    <emoji-mart title="City Chat" emoji="" sheetSize="20" [darkMode]=false [perLine]=6 [enableSearch]=false 
+    <emoji-mart title="City Chat" emoji="" sheetSize="20" [darkMode]=false [perLine]=6 [enableSearch]=false
         [totalFrequentLines]=1 set="facebook" (emojiSelect)="addEmoji($event)">
     </emoji-mart>
 </mat-menu>
 <ng-template #loading>
     <div class="my-container">
+        <div class="forms">
+            <div class="loader">Loading...</div>
+            <div class="title-loader"><b>CITY CHAT</b></div>
+        </div>
     </div>
-    <div class="form">
-        <div class="loader">Loading...</div>
-        <div class="title-loader"><b>CITY CHAT</b></div>
-      </div>
-  </ng-template>
+</ng-template>
