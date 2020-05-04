@@ -9,6 +9,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { SecureInnerPagesGuard } from './services/guard/secure-inner-pages.guard.ts.guard';
 import { SettingsPageComponent } from './settings-page/settings-page.component';
+import { SearchUsersComponent } from './search-users/search-users.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/sign-in', pathMatch: 'full'},
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'home', component: HomePageComponent, canActivate: [AuthGuard] },
   { path: 'account-info', component: UserInformationPanelComponent, canActivate: [AuthGuard] },
   { path: 'account-settings', component: SettingsPageComponent, canActivate: [AuthGuard] },
+  { path: 'search-city', component: SearchUsersComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

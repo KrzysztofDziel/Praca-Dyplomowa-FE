@@ -41,6 +41,13 @@ mat-sidenav {
   background: linear-gradient(0deg,rgb(144, 74, 108) 0%, rgb(236, 142, 158) 65%) !important;
 }
 
+.mat-toolbar {
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 0; /* Sets the sticky toolbar to be on top */
+  z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+}
+
 body,
 html {
   padding: 0;
@@ -52,3 +59,17 @@ html {
   width: 100vw;
   height: 100vh;
 }
+
+div * {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */  ::-webkit-scrollbar-track {
+    -webkit-box-shadow: none !important;
+    background-color: transparent;
+  }  ::-webkit-scrollbar {
+    width: 3px !important;
+    background-color: transparent;
+  }  ::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+}
+

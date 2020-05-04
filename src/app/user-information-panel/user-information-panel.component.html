@@ -1,4 +1,4 @@
-<div class="my-container" *ngIf="profile.username">
+<div class="my-container">
 </div>
 <div *ngIf="profile.username; else loading" class="login-page">
     <div class="form">
@@ -80,11 +80,10 @@
         [totalFrequentLines]=1 set="facebook" (emojiSelect)="addEmoji($event)">
     </emoji-mart>
 </mat-menu>
+
 <ng-template #loading>
-    <div class="my-container">
-        <div class="forms">
-            <div class="loader">Loading...</div>
-            <div class="title-loader"><b>CITY CHAT</b></div>
-        </div>
+    <div class="forms">
+        <div class="loader">Loading...</div>
+        <div class="title-loader"><b>CITY CHAT</b></div>
     </div>
 </ng-template>

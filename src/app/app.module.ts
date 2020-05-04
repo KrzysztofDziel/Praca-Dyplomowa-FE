@@ -23,6 +23,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart'
 import {ToastaModule} from 'ngx-toasta';
 import { AvatarModule } from 'ngx-avatar';
 import { SettingsPageComponent } from './settings-page/settings-page.component';
+import { SearchUsersComponent } from './search-users/search-users.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { SettingsPageComponent } from './settings-page/settings-page.component';
     SignUpComponent,
     VerifyEmailComponent,
     SettingsPageComponent,
+    SearchUsersComponent,
   ],
   imports: [
     BrowserModule,

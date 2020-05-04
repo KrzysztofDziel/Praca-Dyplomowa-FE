@@ -47,7 +47,7 @@
 
 .gradient-button {
   margin: 10px;
-  margin-top: 20px;
+  margin-top: 60px;
   margin-bottom: 20px;
   font-family: "Arial Black", Gadget, sans-serif;
   font-size: 15px;
@@ -69,7 +69,6 @@
 
 .gradient-button:hover {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  margin: 8px 10px 12px;
 }
 .gradient-button-1 {
   background-image: linear-gradient(to right, #dd5e89 0%, #f7bb97 51%, #dd5e89 100%);
@@ -87,6 +86,9 @@
 
 .gradient-button-3 {
   background-image: linear-gradient(to right, #7474bf 0%, #348ac7 51%, #7474bf 100%);
+  font-size: 13px;
+  padding-top: 13px;
+  padding-bottom: 13px;
 }
 .gradient-button-3:hover {
   background-position: right center;
@@ -98,6 +100,10 @@
 .gradient-button-4:hover {
   background-position: right center;
 }
+
+ a.gradient-button.gradient-button-1 {
+   margin-top: 25vh !important;
+ }
 
 .my-container {
   background-image: url("/assets/images/background.jpg");
@@ -175,4 +181,10 @@
 
 ngx-avatar {
   margin-right: 10px;
+}
+
+
+body {
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
 }

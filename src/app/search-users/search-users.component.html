@@ -1,0 +1,79 @@
+<div class="my-container">
+</div>
+<div *ngIf="dataRecived; else loading">
+    <div class="login-page">
+        <div class="form">
+            <div class="page-title">
+                Lista użytkowników w okolicy
+            </div>
+            <hr>
+            <div>
+                <h5>Wyniki wyszukiwania dla : {{locationModel.city}}, {{locationModel.regionName}},
+                    {{locationModel.countryName}}</h5>
+            </div>
+            <br>
+            <div>
+                W twoim mieście znaleziono <b>{{userList.length}}</b> użytkowników!
+            </div>
+            <mat-form-field class="margin">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Przeszukaj wyniki">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput [(ngModel)]="inviteMessage" #invite placeholder="Treść zaproszenia">
+            </mat-form-field>
+            <a class="gradient-emotes gradient-button-1" mat-button [matMenuTriggerFor]="aboveMenu">
+                <mat-icon>tag_faces</mat-icon>
+            </a>
+            <mat-table [dataSource]="dataSource" matSort>
+
+                <ng-container matColumnDef="photoDownloadURL">
+                    <mat-header-cell *matHeaderCellDef> Zdjęcie profilowe </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <ngx-avatar *ngIf="element.photoDownloadURL !== ''" size=100 src="{{element.photoDownloadURL}}"
+                            bgColor="#cc6b8e"></ngx-avatar>
+                        <ngx-avatar *ngIf="element.photoDownloadURL === ''" size=100 name="{{element.username}}"
+                            bgColor="#cc6b8e">
+                        </ngx-avatar>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="username">
+                    <mat-header-cell *matHeaderCellDef> Nazwa użytkownika </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="bio">
+                    <mat-header-cell *matHeaderCellDef> Opis </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.bio}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="options">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <button class="gradient-button gradient-button-4" (click)="sendInvite(element)"><span
+                                class='glyphicon glyphicon-envelope' style="color:white;"></span> <span
+                                style="margin-left: 2px"> Wyślij zaproszenie</span></button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row (click)="logData(row)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <mat-paginator [pageSizeOptions]="[3, 5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+    </div>
+</div>
+<ngx-toasta></ngx-toasta>
+
+<mat-menu #aboveMenu="matMenu" yPosition="above">
+    <emoji-mart title="City Chat" emoji="" sheetSize="20" [darkMode]=false [perLine]=6 [enableSearch]=false
+        [totalFrequentLines]=1 set="facebook" (emojiSelect)="addEmoji($event)">
+    </emoji-mart>
+</mat-menu>
+
+<ng-template #loading>
+    <div class="forms">
+        <div class="loader">Loading...</div>
+        <div class="title-loader"><b>CITY CHAT</b></div>
+    </div>
+</ng-template>

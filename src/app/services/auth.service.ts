@@ -2,7 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { User } from "../services/user";
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
 import { UserModel } from '../models/user';
 import { LocationDataModel } from '../models/locationData.model';
@@ -23,6 +23,8 @@ export class AuthService {
   percentage: Observable<number>;
   snapshot: Observable<any>;
   downloadURL: string;
+  peopleCollection: AngularFirestoreCollection;
+  foundUsersList: Array<UserModel> = [];
 
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
@@ -96,7 +98,7 @@ export class AuthService {
 
     this.afAuth.auth.currentUser.delete().then(() => {
       this.SignOut();
-      })
+    })
   }
 
   updateUserBioDatabase(loc: LocationDataModel, user: UserModel) {
@@ -218,4 +220,50 @@ export class AuthService {
     this.afs.doc(`users/${user.id}`).update({ photoURL: "", photoDownloadURL: "" });
   }
 
+  SetUserMocData(id) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${id}`);
+    const userData: User = {
+      uid: id,
+      email: "",
+      displayName: "",
+      photoURL: "",
+      photoDownloadURL: "",
+      emailVerified: true,
+      city: "",
+      country: "",
+      region: "",
+      bio: "",
+    }
+    return userRef.set(userData, {
+      merge: true
+    })
+  }
+
+  getUsersInYourCity(location, id) {
+    this.foundUsersList = [];
+    this.afs.collection('users', ref => ref
+      .where('city', '==', location.city)
+      .where('region', '==', location.regionName)
+      .where('country', '==', location.countryName))
+      .get().subscribe(val => {
+        val.docs.forEach(doc => {
+          const item: UserModel = {
+            username: doc.data().displayName,
+            email: doc.data().email,
+            bio: doc.data().bio,
+            photoURL: doc.data().photoURL,
+            country: doc.data().country,
+            region: doc.data().region,
+            city: doc.data().city,
+            id: doc.data().uid,
+            emailVerified: doc.data().emailVerified,
+            photoDownloadURL: doc.data().photoDownloadURL
+          };
+          if (item.id !== id) {
+            this.foundUsersList.push(item);
+          }
+        })
+      });
+      return this.foundUsersList;
+  }
 }
