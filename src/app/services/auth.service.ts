@@ -24,7 +24,7 @@ export class AuthService {
   snapshot: Observable<any>;
   downloadURL: string;
   peopleCollection: AngularFirestoreCollection;
-  foundUsersList: Array<UserModel> = [];
+  foundUsersList = [];
 
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
@@ -247,7 +247,7 @@ export class AuthService {
       .where('country', '==', location.countryName))
       .get().subscribe(val => {
         val.docs.forEach(doc => {
-          const item: UserModel = {
+          const item = {
             username: doc.data().displayName,
             email: doc.data().email,
             bio: doc.data().bio,
@@ -257,9 +257,10 @@ export class AuthService {
             city: doc.data().city,
             id: doc.data().uid,
             emailVerified: doc.data().emailVerified,
-            photoDownloadURL: doc.data().photoDownloadURL
+            photoDownloadURL: doc.data().photoDownloadURL,
+            isInvited: false
           };
-          if (item.id !== id) {
+          if (item.id != id) {
             this.foundUsersList.push(item);
           }
         })

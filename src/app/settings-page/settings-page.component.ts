@@ -62,4 +62,6 @@ export class SettingsPageComponent extends BaseComponent implements OnInit {
     setTimeout(() => window.location.reload(), 8000);
   }
 
+  
+
 }

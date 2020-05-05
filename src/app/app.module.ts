@@ -24,6 +24,8 @@ import {ToastaModule} from 'ngx-toasta';
 import { AvatarModule } from 'ngx-avatar';
 import { SettingsPageComponent } from './settings-page/settings-page.component';
 import { SearchUsersComponent } from './search-users/search-users.component';
+import { ActiveInvitationsComponent } from './active-invitations/active-invitations.component';
+import { FriendsComponent } from './friends/friends.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { SearchUsersComponent } from './search-users/search-users.component';
     VerifyEmailComponent,
     SettingsPageComponent,
     SearchUsersComponent,
+    ActiveInvitationsComponent,
+    FriendsComponent,
   ],
   imports: [
     BrowserModule,
