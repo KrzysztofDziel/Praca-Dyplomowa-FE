@@ -10,9 +10,10 @@ import { ToastaService, ToastaConfig, ToastOptions } from 'ngx-toasta';
   styleUrls: ['./settings-page.component.scss']
 })
 export class SettingsPageComponent extends BaseComponent implements OnInit {
-
+  checked: boolean = false;
   confirmDeletion: string = '';
   deletePhoto: string = '';
+
   constructor(
     private loc: LocationService,
     auth: AuthService,
@@ -30,7 +31,7 @@ export class SettingsPageComponent extends BaseComponent implements OnInit {
   }
 
   checkIfConfirmed() {
-    return this.confirmDeletion === this.profile.username ? true : false;
+    return this.confirmDeletion === this.profile.username && this.checked === true ? true : false;
   }
 
   deleteUser() {
@@ -45,7 +46,7 @@ export class SettingsPageComponent extends BaseComponent implements OnInit {
 
     this.toastaService.info(toastOptions);
     setTimeout(() => this.auth.deleteUserFromDB(this.profile), 7000);
-    
+
   }
 
   deleteUserPhoto() {
@@ -62,6 +63,6 @@ export class SettingsPageComponent extends BaseComponent implements OnInit {
     setTimeout(() => window.location.reload(), 8000);
   }
 
-  
+
 
 }

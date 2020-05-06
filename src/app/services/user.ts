@@ -9,4 +9,5 @@ export interface User {
     country: string;
     region: string;
     city: string;
+    friendsList: Array<string>    
  }

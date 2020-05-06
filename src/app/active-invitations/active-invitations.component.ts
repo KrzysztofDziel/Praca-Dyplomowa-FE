@@ -59,6 +59,7 @@ export class ActiveInvitationsComponent extends BaseComponent implements OnInit 
       .get().subscribe(val => {
         val.docs.forEach(doc => {
           const item = {
+            id: doc.data().invitationFrom,
             docId: doc.id,
             username: doc.data().invitationFromUsername,
             bio: doc.data().invitationFromBio,
@@ -85,6 +86,7 @@ export class ActiveInvitationsComponent extends BaseComponent implements OnInit 
     }
 
     this.toastaService.success(toastOptions);
+    this.addUserToFriends(element);
   }
 
   rejectInvitation(element) {
@@ -95,8 +97,61 @@ export class ActiveInvitationsComponent extends BaseComponent implements OnInit 
     this.deleteInvitation(element);
   }
 
-  addUserToFriends() {
+  addUserToFriends(element) {
+    let alreadyFriend = false;
+    this.profile.friendsList.forEach(id => {
+      if (id === element.id) {
+        alreadyFriend = true;
+      }
+    })
+    if (alreadyFriend) {
+      this.afs.doc(`invitations/${element.docId}`).delete().then(() => {
+      }).catch(function (error) {
+        console.error("Error removing document: ", error);
+      });
+    } else {
+      this.afs.doc(`invitations/${element.docId}`).delete().then(() => {
+      }).catch(function (error) {
+        console.error("Error removing document: ", error);
+      });
+      this.profile.friendsList.push(element.id);
+      this.afs.doc(`users/${this.profile.id}`).update({ friendsList: this.profile.friendsList });
+      let newFriend = new UserModel;
+      this.auth.downloadSpecificUser(element.id).then(data => {
+        if (data) {
+          newFriend = data;
+          let alreadyInFriends = false;
+          newFriend.friendsList.forEach(element => {
+            if (element === this.profile.id) {
+              alreadyInFriends = true;
+            }
+          });
 
+          if (!alreadyInFriends) {
+            newFriend.friendsList.push(this.profile.id);
+            this.afs.doc(`users/${element.id}`).update({ friendsList: newFriend.friendsList });
+          }
+        }
+      });
+
+      this.afs.collection('invitations', ref => ref
+        .where('invitationTo', '==', element.id)
+        .where('invitationFrom', '==', this.profile.id))
+        .get().subscribe(val => {
+          val.docs.forEach(doc => {
+            const item = {
+              id: doc.data().invitationFrom,
+              docId: doc.id,
+              username: doc.data().invitationFromUsername,
+              bio: doc.data().invitationFromBio,
+              photoDownloadURL: doc.data().invitationFromPhotoDownloadURL,
+              message: doc.data().message
+            };
+            this.afs.doc(`invitations/${item.docId}`).delete();
+          })
+        });
+
+    }
   }
 
   deleteInvitation(element) {
@@ -108,7 +163,7 @@ export class ActiveInvitationsComponent extends BaseComponent implements OnInit 
       theme: 'bootstrap',
     }
 
-    this.afs.doc(`invitations/${element.docId}`).delete().then( () => {
+    this.afs.doc(`invitations/${element.docId}`).delete().then(() => {
       this.toastaService.info(toastOptions);
     }).catch(function (error) {
       console.error("Error removing document: ", error);

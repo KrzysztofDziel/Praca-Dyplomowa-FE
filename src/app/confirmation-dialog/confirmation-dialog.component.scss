@@ -1,0 +1,14 @@
+.mat-dialog-actions {
+    &[align='end'] {
+      justify-content: flex-end;
+    }
+  
+    &[align='center'] {
+      justify-content: center;
+    }
+  }
+
+.colorButton {
+    background: #cc6b8e;
+    color: white;
+}

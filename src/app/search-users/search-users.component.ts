@@ -38,7 +38,7 @@ export class SearchUsersComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
-      this.userList = this.auth.getUsersInYourCity(this.locationModel, this.profile.id);
+      this.userList = this.auth.getUsersInYourCity(this.locationModel, this.profile);
       console.log(this.userList);
       setTimeout(() => {
         this.downloadSentInvitations();

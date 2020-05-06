@@ -26,6 +26,7 @@ import { SettingsPageComponent } from './settings-page/settings-page.component';
 import { SearchUsersComponent } from './search-users/search-users.component';
 import { ActiveInvitationsComponent } from './active-invitations/active-invitations.component';
 import { FriendsComponent } from './friends/friends.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { FriendsComponent } from './friends/friends.component';
     SearchUsersComponent,
     ActiveInvitationsComponent,
     FriendsComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +58,9 @@ import { FriendsComponent } from './friends/friends.component';
     PickerModule,
     AvatarModule,
     ToastaModule.forRoot(),
+  ],
+  entryComponents: [
+    ConfirmationDialogComponent
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

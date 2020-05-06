@@ -1,0 +1,6 @@
+<div mat-dialog-content style="text-align: center; margin-bottom: 10px" [innerHTML]="message" >
+   </div>
+   <div mat-dialog-actions align="center">
+     <button mat-button (click)="onNoClick()">Anuluj</button>
+     <button mat-button [mat-dialog-close]="true" class="colorButton">Potwierdź</button>
+   </div>

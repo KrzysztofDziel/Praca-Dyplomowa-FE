@@ -104,7 +104,7 @@ mat-expansion-panel {
 }
 
 .gradient-button-1 {
-  background-image: linear-gradient(to right, #850000 0%, red 51%, #850000 100%);
+  background-image: linear-gradient(to right, red 0%, #850000 51%, red 100%); 
 }
 
 .gradient-button-1:disabled {

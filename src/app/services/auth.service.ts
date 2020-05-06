@@ -63,7 +63,32 @@ export class AuthService {
         profile.id = userInfo.uid;
         profile.emailVerified = user.emailVerified;
         profile.photoDownloadURL = userInfo.photoDownloadURL;
+        profile.friendsList = userInfo.friendsList;
         console.log("Document data:", profile);
+      } else {
+        console.log("No such document!");
+      }
+      return profile;
+    }).catch(function (error) {
+      console.log("Error getting document:", error);
+    })
+  }
+
+  downloadSpecificUser(id) {
+    let profile = new UserModel;
+    return this.afs.collection('users').doc(id).ref.get().then(function (doc) {
+      if (doc.exists) {
+        profile.username = doc.data().displayName;
+        profile.email = doc.data().email;
+        profile.bio = doc.data().bio;
+        profile.photoURL = doc.data().photoURL;
+        profile.country = doc.data().country;
+        profile.region = doc.data().region;
+        profile.city = doc.data().city;
+        profile.id = doc.data().uid;
+        profile.emailVerified = doc.data().emailVerified;
+        profile.photoDownloadURL = doc.data().photoDownloadURL;
+        profile.friendsList = doc.data().friendsList;
       } else {
         console.log("No such document!");
       }
@@ -166,6 +191,7 @@ export class AuthService {
   }
 
   SetUserDataRegister(user, userName, bio) {
+    let friendsList: Array<string> = [];
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const userData: User = {
       uid: user.uid,
@@ -178,6 +204,7 @@ export class AuthService {
       country: "",
       region: "",
       bio: bio,
+      friendsList: friendsList
     }
     return userRef.set(userData, {
       merge: true
@@ -221,6 +248,7 @@ export class AuthService {
   }
 
   SetUserMocData(id) {
+    let friendsList: Array<string> = [];
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${id}`);
     const userData: User = {
       uid: id,
@@ -233,13 +261,14 @@ export class AuthService {
       country: "",
       region: "",
       bio: "",
+      friendsList: friendsList
     }
     return userRef.set(userData, {
       merge: true
     })
   }
 
-  getUsersInYourCity(location, id) {
+  getUsersInYourCity(location, user) {
     this.foundUsersList = [];
     this.afs.collection('users', ref => ref
       .where('city', '==', location.city)
@@ -260,8 +289,16 @@ export class AuthService {
             photoDownloadURL: doc.data().photoDownloadURL,
             isInvited: false
           };
-          if (item.id != id) {
-            this.foundUsersList.push(item);
+          if (item.id != user.id) {
+            let alreadyFriends = false;
+            user.friendsList.forEach(element => {
+              if ( item.id === element) {
+                alreadyFriends = true
+              }
+            });
+            if (!alreadyFriends) {
+              this.foundUsersList.push(item);
+            }
           }
         })
       });
