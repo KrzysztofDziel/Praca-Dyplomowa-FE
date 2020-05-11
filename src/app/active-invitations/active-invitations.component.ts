@@ -98,9 +98,10 @@ export class ActiveInvitationsComponent extends BaseComponent implements OnInit 
   }
 
   addUserToFriends(element) {
+    let roomID = this.afs.createId();
     let alreadyFriend = false;
-    this.profile.friendsList.forEach(id => {
-      if (id === element.id) {
+    this.profile.friendsList.forEach(object => {
+      if (object.id === element.id) {
         alreadyFriend = true;
       }
     })
@@ -114,7 +115,8 @@ export class ActiveInvitationsComponent extends BaseComponent implements OnInit 
       }).catch(function (error) {
         console.error("Error removing document: ", error);
       });
-      this.profile.friendsList.push(element.id);
+      let friendModel = { id: element.id, room: roomID};
+      this.profile.friendsList.push(friendModel);
       this.afs.doc(`users/${this.profile.id}`).update({ friendsList: this.profile.friendsList });
       let newFriend = new UserModel;
       this.auth.downloadSpecificUser(element.id).then(data => {
@@ -122,14 +124,17 @@ export class ActiveInvitationsComponent extends BaseComponent implements OnInit 
           newFriend = data;
           let alreadyInFriends = false;
           newFriend.friendsList.forEach(element => {
-            if (element === this.profile.id) {
+            if (element.id === this.profile.id) {
               alreadyInFriends = true;
             }
           });
 
           if (!alreadyInFriends) {
-            newFriend.friendsList.push(this.profile.id);
+            let newFriendModel = { id: this.profile.id, room: roomID};
+            newFriend.friendsList.push(newFriendModel);
             this.afs.doc(`users/${element.id}`).update({ friendsList: newFriend.friendsList });
+            console.log("Tworzę pokój");
+            this.auth.createRoom(roomID, this.profile.id, element.id);
           }
         }
       });

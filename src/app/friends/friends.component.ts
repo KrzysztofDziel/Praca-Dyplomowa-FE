@@ -10,6 +10,7 @@ import { AuthService } from '../services/auth.service';
 import { ToastaService, ToastaConfig, ToastOptions } from 'ngx-toasta';
 import { MatDialog } from '@angular/material';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-friends',
@@ -29,6 +30,7 @@ export class FriendsComponent extends BaseComponent implements OnInit {
     public dialog: MatDialog,
     private loc: LocationService,
     private afs: AngularFirestore,
+    private router: Router,
     auth: AuthService,
     toastaService: ToastaService,
     toastaConfig: ToastaConfig) {
@@ -60,16 +62,26 @@ export class FriendsComponent extends BaseComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        let newMyFriendsList = this.profile.friendsList.filter(obj => obj !== element.id);
+        let newMyFriendsList = this.profile.friendsList.filter(obj => obj.id !== element.id);
         this.afs.doc(`users/${this.profile.id}`).update({ friendsList: newMyFriendsList });
 
-        let newFriendsList = element.friendsList.filter(obj => obj !== this.profile.id);
+        let newFriendsList = element.friendsList.filter(obj => obj.id !== this.profile.id);
         this.afs.doc(`users/${element.id}`).update({ friendsList: newFriendsList });
 
         let newUsersList = this.userList.filter(obj => obj != element);
         this.dataSource = new MatTableDataSource(newUsersList);
         this.dataSource.sort = this.sort;
         setTimeout(() => this.dataSource.paginator = this.paginator);
+
+        let roomID;
+        this.profile.friendsList.forEach(user => {
+          if (user.id === element.id) {
+            roomID = user.room;
+          }
+        });
+
+        this.afs.doc(`chats/${roomID}`).delete();
+
 
         var toastOptions: ToastOptions = {
           title: "Usunięto użytkownika ze znajomych",
@@ -90,12 +102,25 @@ export class FriendsComponent extends BaseComponent implements OnInit {
   getMyFriends(user) {
     if (user.friendsList.length !== 0) {
       user.friendsList.forEach(element => {
-        this.auth.downloadSpecificUser(element).then(data => {
+        this.auth.downloadSpecificUser(element.id).then(data => {
           if (data) {
             this.userList.push(data);
           }
         });
       });
+    }
+  }
+
+  navigateToChat(element) {
+    let roomID;
+    this.profile.friendsList.forEach(user => {
+      if (user.id === element.id) {
+        roomID = user.room;
+      }
+    });
+    console.log(roomID);
+    if (roomID) {
+      this.router.navigate(['chats/'+roomID]);
     }
   }
 

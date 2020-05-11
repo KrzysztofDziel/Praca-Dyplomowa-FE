@@ -9,7 +9,7 @@ export class UserModel {
     id: string;
     emailVerified: boolean;
     photoDownloadURL: string;
-    friendsList: Array<string>;
+    friendsList;
     
     constructor() {
     }

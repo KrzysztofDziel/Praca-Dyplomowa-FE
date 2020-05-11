@@ -40,7 +40,7 @@
                 <ng-container matColumnDef="options">
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let element">
-                        <button class="gradient-button gradient-button-4">
+                        <button class="gradient-button gradient-button-4" (click)="navigateToChat(element)">
                             <span class='glyphicon glyphicon-pencil' style="color:white;"></span>
                             <span style="margin-left: 5px"> Wiadomości</span></button>
                         <button class="gradient-button gradient-button-3" (click)="openDialog(element)">

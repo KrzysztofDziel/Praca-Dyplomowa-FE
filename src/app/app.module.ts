@@ -27,6 +27,7 @@ import { SearchUsersComponent } from './search-users/search-users.component';
 import { ActiveInvitationsComponent } from './active-invitations/active-invitations.component';
 import { FriendsComponent } from './friends/friends.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     ActiveInvitationsComponent,
     FriendsComponent,
     ConfirmationDialogComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,

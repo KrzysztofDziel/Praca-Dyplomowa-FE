@@ -268,6 +268,21 @@ export class AuthService {
     })
   }
 
+  createRoom(roomID, firstID, secondID) {
+    let messages: Array<string> = [];
+    let data = {
+      user1: firstID,
+      user2: secondID,
+      createdAt: Date.now(),
+      count: 0,
+      messages: messages
+    }
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`chats/${roomID}`);
+    return userRef.set(data, {
+      merge: true
+    })
+  }
+
   getUsersInYourCity(location, user) {
     this.foundUsersList = [];
     this.afs.collection('users', ref => ref
@@ -292,7 +307,7 @@ export class AuthService {
           if (item.id != user.id) {
             let alreadyFriends = false;
             user.friendsList.forEach(element => {
-              if ( item.id === element) {
+              if ( item.id === element.id) {
                 alreadyFriends = true
               }
             });

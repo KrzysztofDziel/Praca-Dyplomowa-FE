@@ -1,0 +1,24 @@
+<ng-container>
+    <div class="chat">
+
+
+      <div class="msg" *ngFor="let msg of source.messages; trackBy: trackByCreated">
+
+        <div class="user">
+          <img [src]="msg.user?.photoURL">
+          <div>{{ msg.user?.displayName }}</div>
+        </div>
+
+        <p>{{ msg.content }}</p>
+
+      </div>
+
+    </div>
+
+    <div class="form">
+      <input [(ngModel)]="newMsg" (keydown.enter)="submit()">
+
+      <button (click)="submit()">Send</button>
+    </div>
+
+</ng-container>

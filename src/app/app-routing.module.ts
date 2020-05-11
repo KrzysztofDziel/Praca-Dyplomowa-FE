@@ -12,6 +12,7 @@ import { SettingsPageComponent } from './settings-page/settings-page.component';
 import { SearchUsersComponent } from './search-users/search-users.component';
 import { ActiveInvitationsComponent } from './active-invitations/active-invitations.component';
 import { FriendsComponent } from './friends/friends.component';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/sign-in', pathMatch: 'full'},
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'search-city', component: SearchUsersComponent, canActivate: [AuthGuard] },
   { path: 'invitations', component: ActiveInvitationsComponent, canActivate: [AuthGuard] },
   { path: 'friends', component: FriendsComponent, canActivate: [AuthGuard] },
+  { path: 'chats/:id', component: ChatComponent, canActivate: [AuthGuard] }
 
 ];
 
