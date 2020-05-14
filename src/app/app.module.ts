@@ -28,6 +28,7 @@ import { ActiveInvitationsComponent } from './active-invitations/active-invitati
 import { FriendsComponent } from './friends/friends.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { ChatComponent } from './chat/chat.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,7 @@ import { ChatComponent } from './chat/chat.component';
   entryComponents: [
     ConfirmationDialogComponent
   ],
-  providers: [AuthService],
+  providers: [AuthService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

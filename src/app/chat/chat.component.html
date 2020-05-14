@@ -1,24 +1,132 @@
-<ng-container>
-    <div class="chat">
-
-
-      <div class="msg" *ngFor="let msg of source.messages; trackBy: trackByCreated">
-
-        <div class="user">
-          <img [src]="msg.user?.photoURL">
-          <div>{{ msg.user?.displayName }}</div>
+<div #scrollMe style="overflow:auto; height: 90%;">
+  <div class="my-container">
+  </div>
+  <ng-container *ngIf="source$| async as source; else loading">
+    <ng-container *ngIf="friend; else loading">
+      <div class="login-page">
+        <div class="form">
+          <table>
+            <tr>
+              <td colspan="3">
+                <div class="chatHeader">
+                  <ngx-avatar *ngIf="friend.photoDownloadURL !== ''" size=140 src="{{friend.photoDownloadURL}}"
+                    bgColor="#cc6b8e">
+                  </ngx-avatar>
+                  <ngx-avatar *ngIf="friend.photoDownloadURL === ''" size=140 name="{{friend.username}}" bgColor="#cc6b8e">
+                  </ngx-avatar>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <br>
+                <div class="friendTagName" style="width: 15%; margin: auto">
+                  {{ friend.username }}
+                </div>
+                <br>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <hr>
+              </td>
+            </tr>
+            <ng-container *ngFor="let msg of source.messages; trackBy: trackByCreated">
+              <tr>
+                <td colspan="3">
+                  <div style="font-size: smaller">{{ msg.createdAtReadable }}</div>
+                  <br>
+                </td>
+              </tr>
+              <tr *ngIf="msg.userID === profile.id">
+                <td style="width: 10%">
+                  <div>
+                    <ngx-avatar *ngIf="msg.photoDownloadURL !== ''" size=60 src="{{msg.photoDownloadURL}}"
+                      bgColor="#cc6b8e">
+                    </ngx-avatar>
+                    <ngx-avatar *ngIf="msg.photoDownloadURL === ''" size=60 name="{{msg.userName}}"
+                      bgColor="rgb(81, 67, 93)">
+                    </ngx-avatar>
+                  </div>
+                  <div class="myTagName">
+                    {{ msg.userName }}
+                  </div>
+                </td>
+                <td style="width: 80%">
+                  <p *ngIf="msg.content !== '[ Wiadomość usunięta ]'" style="text-align: left; margin-left: 80px"
+                    [innerHTML]="msg.content"></p>
+                  <p *ngIf="msg.content === '[ Wiadomość usunięta ]'" style="text-align: left; margin-left: 80px">
+                    <i>{{ msg.content }}</i></p>
+                </td>
+                <td style="width: 10%">
+                  <span *ngIf="msg.content !== '[ Wiadomość usunięta ]'" class="glyphicon glyphicon-remove"
+                    (click)="deleteMsg(msg, source)"></span>
+                </td>
+              </tr>
+              <tr *ngIf="msg.userID !== profile.id">
+                <td style="width: 10%">
+                </td>
+                <td style="width: 80%">
+                  <p *ngIf="msg.content !== '[ Wiadomość usunięta ]'" style="text-align: right; margin-right: 80px"
+                    [innerHTML]="msg.content"></p>
+                  <p *ngIf="msg.content === '[ Wiadomość usunięta ]'" style="text-align: right; margin-right: 80px">
+                    <i>{{ msg.content }}</i></p>
+                </td>
+                <td style="width: 10%">
+                  <div>
+                    <ngx-avatar *ngIf="msg.photoDownloadURL !== ''" size=60 src="{{msg.photoDownloadURL}}"
+                      bgColor="#cc6b8e">
+                    </ngx-avatar>
+                    <ngx-avatar *ngIf="msg.photoDownloadURL === ''" size=60 name="{{msg.userName}}" bgColor="#cc6b8e">
+                    </ngx-avatar>
+                  </div>
+                  <div class="friendTagName">
+                    {{ msg.userName }}
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <hr>
+                </td>
+              </tr>
+            </ng-container>
+          </table>
+          <table>
+            <tr>
+              <td style="width: 90%">
+                <textarea [(ngModel)]="newMsg" value="" (keydown.enter)="submit()" placeholder="Aa" required
+                  minlength="1" maxlength="1500" msd-elastic></textarea>
+              </td>
+              <td style="width: 5%">
+                <a class="gradient-emotes gradient-button-2" mat-button [matMenuTriggerFor]="aboveMenu">
+                  <mat-icon>tag_faces</mat-icon>
+                </a>
+              </td>
+              <td style="width: 5%">
+                <a class="gradient-emotes gradient-button-1" (click)="submit()" mat-button>
+                  <mat-icon>send</mat-icon>
+                </a>
+              </td>
+            </tr>
+          </table>
         </div>
-
-        <p>{{ msg.content }}</p>
-
       </div>
+    </ng-container>
+  </ng-container>
 
+  <mat-menu #aboveMenu="matMenu" yPosition="above">
+    <emoji-mart title="City Chat" emoji="" sheetSize="20" [darkMode]=false [perLine]=6 [enableSearch]=false
+      [totalFrequentLines]=1 set="facebook" (emojiSelect)="addEmoji($event)">
+    </emoji-mart>
+  </mat-menu>
+
+  <ng-template #loading>
+    <div class="forms">
+      <div class="loader">Loading...</div>
+      <div class="title-loader"><b>CITY CHAT</b></div>
     </div>
+  </ng-template>
+</div>
 
-    <div class="form">
-      <input [(ngModel)]="newMsg" (keydown.enter)="submit()">
-
-      <button (click)="submit()">Send</button>
-    </div>
-
-</ng-container>
+<ngx-toasta></ngx-toasta>
