@@ -43,8 +43,6 @@ export class ChatComponent extends BaseComponent implements OnInit, AfterViewChe
     this.source$.subscribe(val => {
       this.getData(val);
     })
-    //this.setSourceReadable(this.source);
-    console.log("komunikat", this.source$);
     this.scrollToBottom();
   }
 
@@ -61,7 +59,6 @@ export class ChatComponent extends BaseComponent implements OnInit, AfterViewChe
       this.auth.downloadSpecificUser(id).then(data => {
         if (data) {
           this.friend = data;
-          console.log(this.friend);
         }
       });
     }

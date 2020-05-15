@@ -40,19 +40,16 @@ export class FriendsComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
-      console.log(this.profile);
       this.getMyFriends(this.profile);
-      console.log(this.userList);
       setTimeout(() => {
         this.dataSource = new MatTableDataSource(this.userList);
         if (this.dataSource) {
           this.dataSource.sort = this.sort;
           setTimeout(() => this.dataSource.paginator = this.paginator);
           this.dataRecived = true;
-          console.log(this.dataSource);
         }
       }, 500)
-    }, 3000);
+    }, 2500);
   }
 
   openDialog(element): void {
@@ -118,7 +115,6 @@ export class FriendsComponent extends BaseComponent implements OnInit {
         roomID = user.room;
       }
     });
-    console.log(roomID);
     if (roomID) {
       this.router.navigate(['chats/'+roomID]);
     }

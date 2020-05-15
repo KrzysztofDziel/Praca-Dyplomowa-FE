@@ -18,6 +18,7 @@ import { Invitation } from '../models/invitation';
 
 export class SearchUsersComponent extends BaseComponent implements OnInit {
   invitationsList = [];
+  invitationsListDownloaded = false;
   dataRecived = false;
   userList = null;
   inviteMessage = '';
@@ -39,22 +40,19 @@ export class SearchUsersComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     setTimeout(() => {
       this.userList = this.auth.getUsersInYourCity(this.locationModel, this.profile);
-      console.log(this.userList);
-      setTimeout(() => {
+      if (this.userList) {
         this.downloadSentInvitations();
         setTimeout(() => {
           this.checkWhoIsInvitedByMe();
-          console.log(this.userList);
           this.dataSource = new MatTableDataSource(this.userList);
           if (this.dataSource) {
             this.dataSource.sort = this.sort;
             setTimeout(() => this.dataSource.paginator = this.paginator);
             this.dataRecived = true;
-            console.log(this.dataSource);
           }
         }, 500)
-      }, 1000);
-    }, 3000);
+      }
+    }, 2500);
   }
 
   applyFilter(filterValue: string) {
@@ -98,7 +96,6 @@ export class SearchUsersComponent extends BaseComponent implements OnInit {
       })
       this.toastaService.success(toastOptions);
     } catch (e) {
-      console.log(e);
       this.toastaService.error(toastOptionsError);
     }
 
@@ -115,7 +112,7 @@ export class SearchUsersComponent extends BaseComponent implements OnInit {
             this.invitationsList.push(invitationTo);
           }
         })
-        console.log(this.invitationsList);
+        this.invitationsListDownloaded = true;
       });
   }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { firestore } from 'firebase/app';
 import { map } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
@@ -11,7 +11,7 @@ export class ChatService {
   constructor(
     private datePipe: DatePipe,
     private afs: AngularFirestore,
-  ) {}
+  ) { }
 
   get(chatId) {
     return this.afs
@@ -39,21 +39,53 @@ export class ChatService {
     };
 
     if (user) {
+      this.makeRoomForNewMsg(chatId);
       const ref = this.afs.collection('chats').doc(chatId);
-      return ref.update({
-        messages: firestore.FieldValue.arrayUnion(data)
-      });
+      this.afs.collection('chats').doc(chatId).ref.get().then(function (doc) {
+        if (doc.exists) {
+          let msgCount: number;
+          msgCount = doc.data().messages.length + 1;
+          return ref.update({
+            messages: firestore.FieldValue.arrayUnion(data),
+            count: msgCount
+          });
+        } else {
+          console.log("No such document!");
+        }
+      }).catch(function (error) {
+        console.log("Error getting document:", error);
+      })
     }
   }
 
+  makeRoomForNewMsg(chatId) {
+    const ref = this.afs.collection('chats').doc(chatId);
+      this.afs.collection('chats').doc(chatId).ref.get().then(function (doc) {
+        if (doc.exists) {
+          let msgCount: number;
+          msgCount = doc.data().messages.length + 1;
+          if (msgCount === 300) {
+            let slicedMessages = doc.data().messages.splice(1, doc.data().messages.length);
+            return ref.update({
+              messages: slicedMessages
+            });
+          }
+        } else {
+          console.log("No such document!");
+        }
+      }).catch(function (error) {
+        console.log("Error getting document:", error);
+      })
+    }
+  
+
 
   async updateMessage(message, chatId, source) {
-    console.log("qweqweqwe",source);
     let chat = source;
     chat.messages.forEach(element => {
-        if (element.createdAt === message.createdAt) {
-          element.content = '[ Wiadomość usunięta ]';
-        }
+      if (element.createdAt === message.createdAt) {
+        element.content = '[ Wiadomość usunięta ]';
+      }
     });
     if (chatId) {
       const ref = this.afs.collection('chats').doc(chatId);

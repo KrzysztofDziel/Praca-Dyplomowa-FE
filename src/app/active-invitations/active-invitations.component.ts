@@ -36,17 +36,15 @@ export class ActiveInvitationsComponent extends BaseComponent implements OnInit 
   ngOnInit() {
     setTimeout(() => {
       this.downloadSentInvitations();
-      console.log(this.myInvitations);
       setTimeout(() => {
         this.dataSource = new MatTableDataSource(this.myInvitations);
         if (this.dataSource) {
           this.dataSource.sort = this.sort;
           setTimeout(() => this.dataSource.paginator = this.paginator);
           this.dataRecived = true;
-          console.log(this.dataSource);
         }
-      }, 1000);
-    }, 3000);
+      }, 500);
+    }, 2500);
   }
 
   applyFilter(filterValue: string) {
@@ -133,7 +131,6 @@ export class ActiveInvitationsComponent extends BaseComponent implements OnInit 
             let newFriendModel = { id: this.profile.id, room: roomID};
             newFriend.friendsList.push(newFriendModel);
             this.afs.doc(`users/${element.id}`).update({ friendsList: newFriend.friendsList });
-            console.log("Tworzę pokój");
             this.auth.createRoom(roomID, this.profile.id, element.id);
           }
         }

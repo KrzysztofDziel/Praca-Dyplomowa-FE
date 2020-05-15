@@ -36,7 +36,9 @@ export class BaseComponent implements OnDestroy {
                 }
                 this.auth.getDownloadURL(this.profile);
                 this.userInfo = JSON.parse(localStorage.getItem('userInformation'));
-                setTimeout(() => this.auth.updateLocationToDB(this.locationModel, this.profile), 1000);
+                if (this.locationModel.city) {
+                this.auth.updateLocationToDB(this.locationModel, this.profile);
+                }
             });
         }
 
@@ -62,7 +64,6 @@ export class BaseComponent implements OnDestroy {
 
     getClientLocation() {
         const o = this.location.getCurrentLocation().subscribe(data => {
-            console.log(data);
             this.locationModel.countryName = data.country_name;
             this.locationModel.regionName = data.region_name;
             this.locationModel.city = data.city;

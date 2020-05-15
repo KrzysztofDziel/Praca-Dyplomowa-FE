@@ -10,6 +10,8 @@ import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage
 import { Observable } from 'rxjs/internal/Observable';
 import { finalize, tap } from 'rxjs/operators';
 import { firebase } from '@firebase/app';
+import { MatDialog } from '@angular/material';
+import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -30,11 +32,14 @@ export class AuthService {
     public afs: AngularFirestore,   // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
+    public dialog: MatDialog,
     public storage: AngularFireStorage,
     public ngZone: NgZone // NgZone service to remove outside scope warning
   ) {
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
+    this.afAuth.auth.useDeviceLanguage();
+    this.afAuth.auth.languageCode = 'pl';
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.userData = user;
@@ -64,7 +69,6 @@ export class AuthService {
         profile.emailVerified = user.emailVerified;
         profile.photoDownloadURL = userInfo.photoDownloadURL;
         profile.friendsList = userInfo.friendsList;
-        console.log("Document data:", profile);
       } else {
         console.log("No such document!");
       }
@@ -112,6 +116,67 @@ export class AuthService {
   }
 
   deleteUserFromDB(user) {
+    this.deleteMeFromAllFriens(user);
+
+    this.deleteAllMyChatRooms(user);
+
+    this.deleteInvitations(user);
+
+    this.deleteUserInfo(user);
+
+    this.afAuth.auth.currentUser.delete().then(() => {
+      this.SignOut();
+    })
+  }
+
+  deleteAllMyChatRooms(user) {
+    this.afs.collection('chats', ref => ref
+      .where('user1', '==', user.id))
+      .get().subscribe(val => {
+        val.docs.forEach(doc => {
+          this.afs.doc(`chats/${doc.id}`).delete();
+        })
+      });
+
+    this.afs.collection('chats', ref => ref
+      .where('user2', '==', user.id))
+      .get().subscribe(val => {
+        val.docs.forEach(doc => {
+          this.afs.doc(`chats/${doc.id}`).delete();
+        })
+      });
+  }
+
+  deleteMeFromAllFriens(user) {
+    user.friendsList.forEach(element => {
+      this.downloadSpecificUser(element.id).then(specUser => {
+        if (specUser) {
+          let newFriendsList = specUser.friendsList.filter(obj => obj.id !== user.id);
+          this.afs.doc(`users/${specUser.id}`).update({ friendsList: newFriendsList });
+        }
+      });
+    });
+  }
+
+  deleteInvitations(user) {
+    this.afs.collection('invitations', ref => ref
+      .where('invitationTo', '==', user.id))
+      .get().subscribe(val => {
+        val.docs.forEach(doc => {
+          this.afs.doc(`invitations/${doc.id}`).delete();
+        })
+      });
+
+    this.afs.collection('invitations', ref => ref
+      .where('invitationFrom', '==', user.id))
+      .get().subscribe(val => {
+        val.docs.forEach(doc => {
+          this.afs.doc(`invitations/${doc.id}`).delete();
+        })
+      });
+  }
+
+  deleteUserInfo(user) {
     if (user.photoDownloadURL != "") {
       this.storage.storage.refFromURL(`${user.photoDownloadURL}`).delete();
     }
@@ -120,10 +185,6 @@ export class AuthService {
     }).catch(function (error) {
       console.error("Error removing document: ", error);
     });
-
-    this.afAuth.auth.currentUser.delete().then(() => {
-      this.SignOut();
-    })
   }
 
   updateUserBioDatabase(loc: LocationDataModel, user: UserModel) {
@@ -148,7 +209,10 @@ export class AuthService {
           window.location.reload();
         })
       }).catch((error) => {
-        window.alert(error.message)
+        const dialogRef = this.dialog.open(AlertDialogComponent, {
+          width: '500px',
+          data: error.message
+        });
       })
   }
 
@@ -162,7 +226,10 @@ export class AuthService {
         this.SendVerificationMail();
         this.SetUserDataRegister(result.user, userName, bio);
       }).catch((error) => {
-        window.alert(error.message)
+        const dialogRef = this.dialog.open(AlertDialogComponent, {
+          width: '500px',
+          data: error.message
+        });
       })
   }
 
@@ -178,9 +245,15 @@ export class AuthService {
   ForgotPassword(passwordResetEmail) {
     return this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
+        const dialogRef = this.dialog.open(AlertDialogComponent, {
+          width: '500px',
+          data: "Wysłano wiadomość e-mail dotyczącą resetowania hasła, sprawdź skrzynkę odbiorczą."
+        });
       }).catch((error) => {
-        window.alert(error)
+        const dialogRef = this.dialog.open(AlertDialogComponent, {
+          width: '500px',
+          data: error.message
+        });
       })
   }
 
@@ -307,7 +380,7 @@ export class AuthService {
           if (item.id != user.id) {
             let alreadyFriends = false;
             user.friendsList.forEach(element => {
-              if ( item.id === element.id) {
+              if (item.id === element.id) {
                 alreadyFriends = true
               }
             });
@@ -317,6 +390,6 @@ export class AuthService {
           }
         })
       });
-      return this.foundUsersList;
+    return this.foundUsersList;
   }
 }

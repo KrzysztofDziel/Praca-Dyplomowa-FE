@@ -95,8 +95,8 @@
           <table>
             <tr>
               <td style="width: 90%">
-                <textarea [(ngModel)]="newMsg" value="" (keydown.enter)="submit()" placeholder="Aa" required
-                  minlength="1" maxlength="1500" msd-elastic></textarea>
+                <textarea [(ngModel)]="newMsg" value="" (keydown.enter)="submit()" placeholder="Aa (max 500 znaków)" required
+                  minlength="1" maxlength="500" msd-elastic></textarea>
               </td>
               <td style="width: 5%">
                 <a class="gradient-emotes gradient-button-2" mat-button [matMenuTriggerFor]="aboveMenu">

@@ -29,6 +29,7 @@ import { FriendsComponent } from './friends/friends.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { ChatComponent } from './chat/chat.component';
 import { DatePipe } from '@angular/common';
+import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { DatePipe } from '@angular/common';
     FriendsComponent,
     ConfirmationDialogComponent,
     ChatComponent,
+    AlertDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,7 +65,8 @@ import { DatePipe } from '@angular/common';
     ToastaModule.forRoot(),
   ],
   entryComponents: [
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    AlertDialogComponent
   ],
   providers: [AuthService, DatePipe],
   bootstrap: [AppComponent]
