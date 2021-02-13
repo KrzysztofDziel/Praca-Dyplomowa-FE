@@ -9,7 +9,8 @@
 }
 
 .login-page {
-  width: 1200px;
+  max-width: 1200px;
+  min-width: 400px;
   padding: 7% 0 0;
   margin: auto;
   margin-top: 0vh;

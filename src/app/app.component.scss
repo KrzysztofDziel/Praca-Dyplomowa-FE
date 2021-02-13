@@ -85,7 +85,7 @@
 }
 
 .gradient-button-3 {
-  background-image: linear-gradient(to right, #7474bf 0%, #348ac7 51%, #7474bf 100%);
+  background-image: linear-gradient(to right, #7474bf 0%, #3ca6f1 51%, #7474bf 100%);
   font-size: 13px;
   padding-top: 13px;
   padding-bottom: 13px;
@@ -163,6 +163,8 @@
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   width: 15%;
   height: 30%;
+  min-height: 250px;
+  min-width: 250px;
   margin: auto;
   border-radius: 10%;
   margin-top: 15%;
@@ -179,6 +181,13 @@
   margin-top: 15%;
 }
 
+@media only screen 
+and (max-device-width: 650px) { 
+    .hideOnMobile {
+      display: none;
+    }
+ }
+
 ngx-avatar {
   margin-right: 10px;
 }
@@ -187,4 +196,16 @@ ngx-avatar {
 body {
   overflow-y: hidden; /* Hide vertical scrollbar */
   overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+.mat-toolbar.mat-accent {
+  color: #fff !important;
+  background: linear-gradient(0deg,rgb(144, 74, 108) 0%, rgb(236, 142, 158) 65%) !important;
+}
+
+.mat-toolbar {
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 0; /* Sets the sticky toolbar to be on top */
+  z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
 }

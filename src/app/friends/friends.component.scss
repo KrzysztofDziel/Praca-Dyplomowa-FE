@@ -30,9 +30,14 @@
     padding-top: 5px;
     padding-bottom: 5px;
   }
+
+  mat-form-field {
+    min-width: 150px;
+  }
   
   .login-page {
     width: 95%;
+    min-width: 800px;
     padding: 2% 0 0;
     margin: auto;
     margin-top: 0vh;
@@ -73,7 +78,8 @@
     color: #fff;
     box-shadow: 0 0 20px #eee;
     border-radius: 10px;
-    width: 180px;
+    max-width: 180px;
+    min-width: 90px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     cursor: pointer;
@@ -96,6 +102,7 @@
   .gradient-button-3 {
     background-image: linear-gradient(to right, red 0%, #850000 51%, red 100%); 
     width: 50px;
+    min-width: 40px;
   }
     
   .gradient-button-3:hover {
@@ -130,6 +137,8 @@
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     width: 17%;
     height: 30%;
+    min-width: 250px;
+    min-height: 250px;
     margin: auto;
     border-radius: 10%;
     margin-top: 15%;

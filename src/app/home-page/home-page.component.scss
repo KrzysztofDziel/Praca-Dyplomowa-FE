@@ -34,11 +34,13 @@ hr {
 }
 
 .login-page {
-  width: 680px;
+  max-width: 680px;
+  min-width: 400px;
   padding: 10% 0 0;
   margin: auto;
   margin-top: 0vh;
 }
+
 
 .page-title {
   font-size: 26px;

@@ -1,5 +1,6 @@
 .login-page {
-    width: 80%;
+    max-width: 80%;
+    min-width: 500px;
     padding: 2% 0 0;
     margin: auto;
     margin-top: 0vh;
@@ -24,6 +25,7 @@ table {
     border-radius: 5px;
     color: white;
     margin-top: 1vh;
+    min-width: 80px;
 }
 
 .my-container {
@@ -58,6 +60,8 @@ ngx-avatar {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     width: 17%;
     height: 30%;
+    min-width: 250px;
+    min-height: 250px;
     margin: auto;
     border-radius: 10%;
     margin-top: 15%;

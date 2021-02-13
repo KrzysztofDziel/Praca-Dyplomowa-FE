@@ -13,4 +13,10 @@ export class SignInComponent implements OnInit {
   ngOnInit() {
   }
 
+  onKeydown(event,x,y) {
+    if (event.key === "Enter") {
+      this.authService.SignIn(x, y)
+    }
+  }
+
 }

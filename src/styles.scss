@@ -4,6 +4,7 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -36,17 +37,7 @@ mat-sidenav {
   letter-spacing: 3px;
 }
 
-.mat-toolbar.mat-accent {
-  color: #fff !important;
-  background: linear-gradient(0deg,rgb(144, 74, 108) 0%, rgb(236, 142, 158) 65%) !important;
-}
 
-.mat-toolbar {
-  position: sticky;
-  position: -webkit-sticky; /* For macOS/iOS Safari */
-  top: 0; /* Sets the sticky toolbar to be on top */
-  z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
-}
 
 body,
 html {

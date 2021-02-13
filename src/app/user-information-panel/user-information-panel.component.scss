@@ -37,7 +37,8 @@ td {
 }
 
 .login-page {
-  width: 680px;
+  max-width: 680px;
+  min-width: 350px;
   padding: 0.3% 0 0;
   margin: auto;
   margin-top: 0vh;
@@ -86,6 +87,7 @@ ngx-avatar{
   z-index: 0;
   background: #ffffff;
   max-width: 800px;
+  min-width: 300px;
   border-radius: 5px;
   margin: 0 auto;
   padding: 45px;
@@ -215,6 +217,8 @@ emoji-mart .emoji-mart-title-label {
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   width: 17%;
   height: 30%;
+  min-width: 250px;
+  min-height: 250px;
   margin: auto;
   border-radius: 10%;
   margin-top: 15%;

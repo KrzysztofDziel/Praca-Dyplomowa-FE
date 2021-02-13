@@ -2,6 +2,7 @@
     background-image: url("/assets/images/background.jpg");
     position: fixed;
     min-width: 100%;
+    min-height: 100%;
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;
@@ -10,6 +11,7 @@
 
 .login-page {
     width: 20%;
+    min-width: 300px;
     padding: 10% 0 0;
     margin: auto;
     margin-top: 0vh;

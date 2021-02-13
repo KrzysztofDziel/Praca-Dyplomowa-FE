@@ -35,6 +35,7 @@ ngx-avatar {
   width: 95%;
   padding: 2% 0 0;
   margin: auto;
+  min-width: 700px;
   margin-top: 0vh;
 }
 
@@ -73,7 +74,8 @@ ngx-avatar {
   color: #fff;
   box-shadow: 0 0 20px #eee;
   border-radius: 10px;
-  width: 220px;
+  max-width: 220px;
+  min-width: 130px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   cursor: pointer;
@@ -118,6 +120,10 @@ mat-form-field.margin {
   margin-right: 5vh;
 }
 
+mat-form-field {
+  min-width: 150px;
+}
+
 .page-title {
   font-size: 26px;
   margin-top: 1vh;
@@ -129,6 +135,8 @@ mat-form-field.margin {
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   width: 17%;
   height: 30%;
+  min-width: 250px;
+  min-height: 250px;
   margin: auto;
   border-radius: 10%;
   margin-top: 15%;

@@ -6,11 +6,11 @@
         <h3 class="login-title">ZALOGUJ SIĘ</h3>
         <hr>
         <div>
-          <input class="inputStyle" type="text" placeholder="E-mail" #userName required>
+          <input class="inputStyle" (keydown.enter)="onKeydown($event,userName.value, userPassword.value)" type="text" placeholder="E-mail" #userName required>
         </div>
 
         <div>
-          <input class="inputStyle" type="password" placeholder="Hasło" #userPassword required>
+          <input class="inputStyle" (keydown.enter)="onKeydown($event,userName.value, userPassword.value)" type="password" placeholder="Hasło" #userPassword required>
         </div>
 
         <!-- Calling SignIn Api from AuthService -->

@@ -301,9 +301,9 @@ export class AuthService {
 
   uploadUserAvatar(file, user) {
     // The storage path
-    if (user.photoDownloadURL != "") {
-      this.storage.storage.refFromURL(`${user.photoDownloadURL}`).delete();
-    }
+    // if (user.photoDownloadURL != "") {
+    //   this.storage.storage.refFromURL(`${user.photoDownloadURL}`).delete();
+    // }
     const path = `avatars/${Date.now()}_${file.name}`;
     const userId = user.id;
     // Reference to storage bucket

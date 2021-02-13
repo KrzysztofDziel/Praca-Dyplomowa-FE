@@ -71,12 +71,17 @@
                     z kontem użytkownika <b>{{profile.username}}</b> zostaną usunięte.
                     <br><br>
                     <div>
-                        <mat-checkbox class="example-margin" [(ngModel)]="checked">
+                        <mat-checkbox class="example-margin" [(ngModel)]="checked" id="warning">
+                        </mat-checkbox>
+                        <label for="warning">
                             <div> Usunięcie konta może zostać przeprowadzone tylko w momencie, gdy użytkownik dopero co
                                 zalogował się na swoje konto. <br>Dla bezpieczeństwa proszę zalogować się ponownie a
-                                następnie potwierdzić wykonanie też czynności klikając na pole po lewej stronie tego komunikatu. <br>
-                               <span style="color:red">Uwaga! </span> Jeżeli użytkownik usunie konto nie przestrzegając powyższej instrukcji, po zakończeniu operacji niektóre dane mogą nie zostać usunięte.</div>
-                        </mat-checkbox>
+                                następnie potwierdzić wykonanie też czynności klikając na pole po lewej stronie tego
+                                komunikatu. <br>
+                                <span style="color:red">Uwaga! </span> Jeżeli użytkownik usunie konto nie przestrzegając
+                                powyższej instrukcji, po zakończeniu operacji niektóre dane mogą nie zostać usunięte.
+                            </div>
+                        </label>
                     </div>
                     <br>
                     Proszę wpisać swoją nazwę użytkownika oraz nacisnąć przycisk <i>Usuń konto</i> w celu usunięcia
